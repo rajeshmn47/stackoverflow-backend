@@ -29,12 +29,16 @@ mongoose.connect('mongodb://localhost:27017/stackoverflow', {
 
 // Handling get request on login route
 app.get('/', async function (req, res) {
-  res.send('rajesh')
+  const d = await User.find()
+  res.status(200).json({
+    success: true,
+    questions: d,
+  })
 })
 
 app.use(error)
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
   console.warn(`App listening on http://localhost:${PORT}`)
 })
