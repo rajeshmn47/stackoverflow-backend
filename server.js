@@ -22,13 +22,20 @@ app.use('/question/', question)
 // Initializing Passport
 
 // Connecting mongoose to our database
-mongoose.connect(
-  'mongodb+srv://rajeshmn47:<password>@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-)
+
+const { MongoClient, ServerApiVersion } = require('mongodb')
+const uri =
+  'mongodb+srv://rajeshmn47:<password>@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+})
+client.connect((err) => {
+  const collection = client.db('test').collection('devices')
+  // perform actions on the collection object
+  client.close()
+})
 
 // Handling get request on login route
 app.get('/', async function (req, res) {
