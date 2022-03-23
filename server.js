@@ -29,8 +29,6 @@ mongoose.connect('mongodb://localhost:27017/stackoverflow', {
 
 // Handling get request on login route
 app.get('/', async function (req, res) {
-  const asd = await User.find()
-  console.log(asd)
   res.send('rajesh')
 })
 
