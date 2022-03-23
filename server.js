@@ -15,8 +15,9 @@ const catcherrors = require('./catchasyncerrors')
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
 const url = 'http://localhost:3000'
-//const url = "hosting url";
-app.use(cors({ origin: url, credentials: true }))
+const krl = 'https://stackoverflowclonefrontend.netlify.app'
+app.use(cors({ origin: krl, credentials: true }))
+
 app.use('/auth/', user)
 app.use('/question/', question)
 // Initializing Passport
