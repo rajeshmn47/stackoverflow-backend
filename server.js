@@ -22,10 +22,13 @@ app.use('/question/', question)
 // Initializing Passport
 
 // Connecting mongoose to our database
-mongoose.connect('mongodb://localhost:27017/stackoverflow', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(
+  'mongodb+srv://rajeshmn47:<password>@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+)
 
 // Handling get request on login route
 app.get('/', async function (req, res) {
