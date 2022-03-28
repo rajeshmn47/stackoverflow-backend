@@ -27,11 +27,10 @@ app.use('/question/', question)
 const { MongoClient, ServerApiVersion } = require('mongodb')
 const uri =
   'mongodb+srv://rajeshmn47:uni1ver%40se@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const db = uri
-mongoose.Promise = global.Promise
 
+mongoose.Promise = global.Promise
 mongoose.connect(
-  'uri',
+  uri,
   { useNewUrlParser: true, useUnifiedTopology: true },
   function (error) {
     if (error) {
