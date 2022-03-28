@@ -31,7 +31,7 @@ const db = uri
 mongoose.Promise = global.Promise
 
 mongoose.connect(
-  uri,
+  'uri',
   { useNewUrlParser: true, useUnifiedTopology: true },
   function (error) {
     if (error) {

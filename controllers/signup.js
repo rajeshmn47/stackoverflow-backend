@@ -145,5 +145,12 @@ router.post("/login", catchasyncerror(async function(req, res, next) {
           
   }))
 
+  router.get("/getoneuser/:id",catchasyncerror(async function(req, res, next) {
+    const user=await User.findById(req.params.id)
+    res.status(200).json({
+      message:user
+    });
+  }))
+
 
 module.exports = router;

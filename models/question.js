@@ -13,7 +13,9 @@ const questionSchema = new mongoose.Schema({
     },
     title: { type: String, required: true },
     text: { type: String, required: true },
-    tags: [{ type: String, required: true }],
+    tags: [{
+      text:{ type: String, required: true }
+    }],
     score: { type: Number, default: 0 },
     votes: [{
         user: { type: Schema.Types.ObjectId, required: true },
