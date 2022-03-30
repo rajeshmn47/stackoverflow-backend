@@ -22,11 +22,7 @@ app.use('/auth/', user)
 app.use('/question/', question)
 // Initializing Passport
 
-// Connecting mongoose to our database
-
-const { MongoClient, ServerApiVersion } = require('mongodb')
-const uri =
-  'mongodb+srv://rajeshmn47:uni1ver%40se@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const uri ='mongodb+srv://rajeshmn47:uni1ver%40se@cluster0.bpxam.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
 
 mongoose.Promise = global.Promise
 mongoose.connect(
