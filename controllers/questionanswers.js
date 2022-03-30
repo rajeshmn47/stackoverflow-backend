@@ -54,8 +54,7 @@ router.get(
     })
   })
 )
-router.get(
-  '/getonequestion/:id',
+router.get('/getonequestion/:id',
   catchasyncerror(async (req, res, next) => {
     const question = await Question.findById(req.params.id)
     question.views=question.views+1
@@ -67,6 +66,63 @@ router.get(
     })
   })
 )
+
+router.get('/deleteonequestion/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+    await question.remove()
+    res.status(200).json({
+      success: true,
+    })
+  })
+)
+router.get('/editonequestion/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+    question.text=req.body.text
+    await question.save()
+    res.status(200).json({
+      success: true,
+    })
+  })
+)
+
+router.get('/editoneanswer/:id',catchasyncerror(async (req, res, next) => {
+  const question = await Question.findById(req.params.id)
+  question.answers.forEach((ans) => {
+  if(ans._id.toString()===req.body.answerid.toString()){
+    ans.text=req.body.text
+  }})
+  await question.save()
+  res.status(200).json({
+    success: true,
+  })
+})
+)
+
+router.get('/deleteoneanswer/:id',catchasyncerror(async (req, res, next) => {
+  const question = await Question.findById(req.params.id)
+  const answers = question.answers.filter(
+    (rev) => rev._id.toString() !== req.body.id.toString()
+  );
+
+  await Question.findByIdAndUpdate(
+    req.params.id,
+    {
+      answers,
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+  );
+  res.status(200).json({
+    success: true,
+  })
+})
+)
+
 
 router.post('/upvotequestion/:id',catchasyncerror(async (req, res, next) => {
   const question = await Question.findById(req.params.id)
