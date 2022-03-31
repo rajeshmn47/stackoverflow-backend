@@ -96,7 +96,7 @@ router.post('/editoneanswer/:id',
   catchasyncerror(async (req, res, next) => {
     const question = await Question.findById(req.params.id)
     question.answers.forEach((ans) => {
-      if (ans._id.toString() === req.body.answer.toString())
+      if (ans._id.toString() === req.body.answerid.toString())
         (ans.text = req.body.text)
     })
     await question.save()
@@ -112,11 +112,11 @@ router.post('/deleteoneanswer/:id',
   catchasyncerror(async (req, res, next) => {
     const question = await Question.findById(req.params.id)
   const answers = question.answers.filter(
-    (rev) => rev._id.toString() !== req.body.id.toString()
+    (rev) => rev._id.toString() !== req.body.answerid.toString()
   );
 
   await Product.findByIdAndUpdate(
-    req.query.productId,
+    req.params.id,
     {
      answers
     },
@@ -124,13 +124,14 @@ router.post('/deleteoneanswer/:id',
       new: true,
       runValidators: true,
       useFindAndModify: false,
-    }
+    })
     res.status(200).json({
       success: true,
       question:question
     })
   })
 )
+
 
 router.post('/upvotequestion/:id',catchasyncerror(async (req, res, next) => {
   const question = await Question.findById(req.params.id)
