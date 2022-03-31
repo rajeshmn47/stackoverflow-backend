@@ -67,6 +67,70 @@ router.get('/getonequestion/:id',
   })
 )
 
+router.post('/editonequestion/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+    question.text=req.body.text
+    await question.save()
+    console.log(question)
+    res.status(200).json({
+      success: true,
+      question: question,
+    })
+  })
+)
+
+
+router.get('/deleteonequestion/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+    await question.remove()
+    console.log(question)
+    res.status(200).json({
+      success: true,
+    })
+  })
+)
+
+router.post('/editoneanswer/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+    question.answers.forEach((ans) => {
+      if (ans._id.toString() === req.body.answer.toString())
+        (ans.text = req.body.text)
+    })
+    await question.save()
+    console.log(question)
+    res.status(200).json({
+      success: true,
+      question:question
+    })
+  })
+)
+
+router.post('/deleteoneanswer/:id',
+  catchasyncerror(async (req, res, next) => {
+    const question = await Question.findById(req.params.id)
+  const answers = question.answers.filter(
+    (rev) => rev._id.toString() !== req.body.id.toString()
+  );
+
+  await Product.findByIdAndUpdate(
+    req.query.productId,
+    {
+     answers
+    },
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    }
+    res.status(200).json({
+      success: true,
+      question:question
+    })
+  })
+)
 
 router.post('/upvotequestion/:id',catchasyncerror(async (req, res, next) => {
   const question = await Question.findById(req.params.id)
