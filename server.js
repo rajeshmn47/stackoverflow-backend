@@ -16,8 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
 const url = 'http://localhost:3000'
 const krl = 'https://stackoverflowclonefrontend.netlify.app'
-app.use(cors({ origin: krl, credentials: true }))
-
+app.use(cors({
+    origin: '*'
+}));
 app.use('/auth/', user)
 app.use('/question/', question)
 // Initializing Passport
